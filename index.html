@@ -1,28 +1,168 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Deductible Calculator</title>
-    </head>
-    <body>
-        <header>
-            <h1>Trillium Drug Benefit Calculator</h1>
-        </header>
-        <main>
-            <article>
-                <p>Are you Eligible for Trillium Drug Benefit?</p>
-                <p> 
-                <ul>
-                    <li>
-                        <select>
-                              <option value="yes">Yes</option>
-                              <option value="no">No</option>
- 
-                        </select>
-                    </li>
-                </ul>
-                </p>
-            </article>
-        </main>
-       
-    </body>
+	<head>
+		<link rel="stylesheet" type="text/css" href="/styles/normalize.css">
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,700italic,700,300">
+        <link rel="stylesheet" type="text/css" href="/styles/lib.css">
+        <link rel="stylesheet" type="text/css" href="/styles/app.css">
+        <link href='https://fonts.googleapis.com/css?family=PT+Serif' rel='stylesheet' type='text/css'>
+		<title>Deductible Calculator</title>
+
+	</head>
+	<body>
+		<header>
+			<h1>Trillium Drug Benefit Calculator</h1>
+		</header>
+		<main>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<article>
+				<h2>Are you Eligible for Trillium Drug Benefit?</h2>
+				<h3>Please answer the following questions (select from options below)</h3>
+				<form id="ponyo_form" action="/" method="POST" target="ponyo_frame">
+					<div class="form-group">
+						<label for="residency">Are you a resident of Ontario?</label>
+						<input id="residency" type="radio" name="residency" value="yes" checked> Yes
+						<input id="residency" type="radio" name="residency" value="no"> No
+					</div>
+					<div class="form-group">
+						<label for="ohip">Do you have a vaild OHIP Card?</label>
+						<input id="ohip" type="radio" name="ohip" value="yes" checked> Yes
+						<input id="ohip" type="radio" name="ohip" value="no"> No
+					</div>
+					<div class="form-group">
+						<label for="senior">Are you a Senior aged 65 or over?</label>
+						<input id="senior" type="radio" name="senior" value="yes"> Yes
+						<input id="senior" type="radio" name="senior" value="no" checked> No
+					</div>
+					<div class="form-group">
+						<label for="works">Are you receiving benefits from Ontario Works?</label>
+						<input id="works" type="radio" name="works" value="yes"> Yes
+						<input id="works" type="radio" name="works" value="no" checked> No
+					</div>
+					<div class="form-group">
+						<label for="wsib">Receiving benefits from Workplace Safety and Insurance Benefits (WSIB)?</label>
+						<input id="wsib" type="radio" name="wsib" value="yes"> Yes
+						<input id="wsib" type="radio" name="wsib" value="no" checked> No
+					</div>
+					<div class="form-group">
+						<label for="odsb">Receiving benefits from Ontario Disability Support Program (ODSB)?</label>
+						<input id="odsb" type="radio" name="odsb" value="yes"> Yes
+						<input id="odsb" type="radio" name="odsb" value="no" checked> No
+					</div>
+					<div class="form-group">
+						<label for="insurance">Are you receiving full drug coverage from private insurace plans (100%)?</label>
+						<input id="insurance" type="radio" name="insurance" value="yes"> Yes
+						<input id="insurance" type="radio" name="insurance" value="no" checked> No
+					</div>
+				</form>
+				<div style="display:none;">
+					<iframe id="ponyo_frame" name="ponyo_frame"></iframe>
+					<script type="text/javascript">
+						document.getElementById("ponyo_form").submit();
+					</script>
+				</div>
+				<div><h3>Based on the responses above, you are:</h3>
+					<script>
+
+						var residency = document.getElementsByName("residency")[0].value;
+						var ohip = document.getElementsByName("ohip")[0].value;
+						var senior = document.getElementsByName("senior")[1].value;
+						var works = document.getElementsByName("works")[1].value;
+						var wsib = document.getElementsByName("wsib")[1].value;
+						var odsb = document.getElementsByName("odsb")[1].value;
+						var insurance = document.getElementsByName("insurance")[1].value;
+
+						if (residency == "yes" && ohip == "yes" && senior == "no" && works == "no" && wsib == "no" && odsb == "no" && insurance == "no") {
+							document.write("Eligible for Trillium")
+						} 
+						else {
+							document.write("NOT Eligible for Trillium")
+						};
+					</script>
+					<div class="note">If you are eligible you can proceed to estimate the quarterly deductible by completing the information below. 
+					</div>
+				</div>
+			</article>
+			<article>
+				<h2>Please complete the following information to estimate your annual deductible</h2>
+				<form id="ponyo_form" action="/" method="POST" target="ponyo_frame">
+					<div class="form-group">
+						<label for="persons_count">Number of people in your household?</label>
+						<select>
+							<option value="1">1 person</option>
+							<option value="2">2 persons</option>
+							<option value="3">3 persons</option>
+							<option value="4">4 or more persons</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<table id="income" class="display" cellspacing="5" width="100%">
+							<thread>
+								<tr>
+									<th>Persons</th>
+									<th>Net Income(see note)</th>
+									<th> </th>
+									<th>Premiums for Private Insurance (see note)</th>
+								</tr>
+							</thread>
+							<tbody>
+								<tr>
+									<td>Person 1</td>
+									<td><input type="text" id="row-1-income" name="row-1-income" value=" "></td>
+									<td> </td>
+									<td><input type="text" id="row-1-premium" name="row-1-premium" value=" "></td>
+								</tr>
+								<tr>
+									<td>Person 2</td>
+									<td><input type="text" id="row-2-income" name="row-2-income" value=" "></td>
+									<td> </td>
+									<td><input type="text" id="row-2-premium" name="row-2-premium" value=" "></td>
+								</tr>
+								<tr>
+									<td>Person 3</td>
+									<td><input type="text" id="row-3-income" name="row-3-income" value=" "></td>
+									<td> </td>
+									<td><input type="text" id="row-3-premium" name="row-3-premium" value=" "></td>
+								</tr>
+								<tr>
+									<td>Person 4</td>
+									<td><input type="text" id="row-4-income" name="row-4-income" value=" "></td>
+									<td> </td>
+									<td><input type="text" id="row-4-premium" name="row-4-premium" value=" "></td>
+								</tr>
+								<tr>
+									<td>Person 5</td>
+									<td><input type="text" id="row-5-income" name="row-5-income" value=" "></td>
+									<td> </td>
+									<td><input type="text" id="row-5-premium" name="row-5-premium" value=" "></td>
+								</tr>
+								<tr>
+									<td>Person 6</td>
+									<td><input type="text" id="row-6-income" name="row-6-income" value=" "></td>
+									<td> </td>
+									<td><input type="text" id="row-6-premium" name="row-6-premium" value=" "></td>
+								</tr>
+								<tr>
+									<td>Person 7</td>
+									<td><input type="text" id="row-7-income" name="row-7-income" value=" "></td>
+									<td> </td>
+									<td><input type="text" id="row-7-premium" name="row-7-premium" value=" "></td>
+								</tr>
+								<tr>
+									<td>Person 8</td>
+									<td><input type="text" id="row-8-income" name="row-8-income" value=" "></td>
+									<td> </td>
+									<td><input type="text" id="row-8-premium" name="row-8-premium" value=" "></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>		
+				</form>
+			</article>
+		</main>
+	</body>
 </html>
